@@ -15,6 +15,7 @@ module.exports = {
   theme: {
     fontFamily: {
       sans: [
+        "Microsoft YaHei", "PingFang SC", "Heiti SC", // CJK
         'Söhne',
         'Roboto',
         'ui-sans-serif',
