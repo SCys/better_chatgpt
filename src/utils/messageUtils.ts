@@ -45,10 +45,18 @@ const countTokens = (messages: MessageInterface[], model: ModelOptions) => {
 };
 
 export const limitMessageTokens = (
-  messages: MessageInterface[],
+  _messages: MessageInterface[],
   limit: number = 4096,
   model: ModelOptions
 ): MessageInterface[] => {
+  // convert all message content to half-width
+  const messages = _messages.map(i => {
+    return {
+      role: i.role,
+      content: toHalfWidth(i.content),
+    }
+  })
+
   const limitedMessages: MessageInterface[] = [];
   let tokenCount = 0;
 
@@ -84,11 +92,6 @@ export const limitMessageTokens = (
       limitedMessages.unshift({ ...messages[0] });
     }
   }
-
-  // convert to half width
-  limitedMessages.forEach((message) => {
-    message.content = toHalfWidth(message.content);
-  });
 
   return limitedMessages;
 };

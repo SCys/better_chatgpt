@@ -79,8 +79,6 @@ export const getChatCompletionStream = async (
     }
   }
 
-  console.log(messages);
-
   const response = await fetch(endpoint, {
     method: 'POST',
     headers,
