@@ -53,7 +53,7 @@ export const limitMessageTokens = (
   const messages = _messages.map(i => {
     return {
       role: i.role,
-      content: toHalfWidth(i.content),
+      content: toHalfWidth(i.content)
     }
   })
 
@@ -145,7 +145,7 @@ function toHalfWidth(text: string): string {
     '【': '[', '】': ']', '《': '<', '》': '>'
   };
 
-  return text.replace(/[\uFF01-\uFF5E]/g, (match) => {
+  return text.replace(/[，。？！；：“”‘’（）【】《》]/g, (match) => {
     return punctuationMapping[match] || match;
   });
 }
