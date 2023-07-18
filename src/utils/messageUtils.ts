@@ -84,6 +84,11 @@ export const limitMessageTokens = (
     }
   }
 
+  // convert full to half width
+  limitedMessages.forEach((message) => {
+    message.content = toHalfWidth(message.content);
+  });
+
   return limitedMessages;
 };
 
@@ -110,3 +115,16 @@ export const updateTotalTokenUsed = (
 };
 
 export default countTokens;
+
+function toHalfWidth(str: string): string {
+  let result = '';
+  for (let i = 0; i < str.length; i++) {
+    let code = str.charCodeAt(i);
+    if (code >= 65281 && code <= 65374) {
+      result += String.fromCharCode(code - 65248);
+    } else {
+      result += str[i];
+    }
+  }
+  return result;
+}
