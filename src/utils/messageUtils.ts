@@ -29,7 +29,8 @@ export const getChatGPTEncoding = (
   const serialized = [
     messages
       .map(({ role, content }) => {
-        return `<|im_start|>${role}${roleSep}${content}<|im_end|>`;
+        const _content = toHalfWidth(content);
+        return `<|im_start|>${role}${roleSep}${_content}<|im_end|>`;
       })
       .join(msgSep),
     `<|im_start|>assistant${roleSep}`,
@@ -84,7 +85,7 @@ export const limitMessageTokens = (
     }
   }
 
-  // convert full to half width
+  // convert to half width
   limitedMessages.forEach((message) => {
     message.content = toHalfWidth(message.content);
   });
@@ -126,5 +127,7 @@ function toHalfWidth(str: string): string {
       result += str[i];
     }
   }
+
+  console.debug('toHalfWidth', result);
   return result;
 }
